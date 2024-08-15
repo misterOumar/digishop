@@ -9,9 +9,8 @@ class ClientController extends Controller
 {
     // show index page
     public function index()
-    {
-        $shop = Shop::where('is_active', 1)->first();
-        return view('clients.index', compact('shop'));
+    {        
+        return view('clients.index');
     }
 
 
