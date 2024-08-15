@@ -16,4 +16,9 @@ class EditShop extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getSavedNotificationTitle(): ?string
+{
+    return 'Boutique modifiée avec succès';
+}
 }

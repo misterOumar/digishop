@@ -14,6 +14,15 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('client/assets/css/theme.bundle.css') }}" />
 
+    <style>
+        :root {
+            --primary-color: {{ $shop->primary_color }};
+            --secondary-color: {{ $shop->secondary_color }};
+            --bs-primary: {{ $shop->primary_color }};
+            --bs-danger: {{ $shop->primary_color }};
+        }
+    </style>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
