@@ -16,6 +16,7 @@ class Shop extends Model
         'phone_2',
         'email',
         'logo',
+        'logo_type',
         'favicon',
         'primary_color',
         'secondary_color',

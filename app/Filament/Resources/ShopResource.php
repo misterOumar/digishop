@@ -62,6 +62,15 @@ class ShopResource extends Resource
                            ,
                         Tabs\Tab::make('Charte')
                             ->schema([
+                                Forms\Components\Radio::make('logo_type')
+                                    ->options([
+                                        '0' => 'Texte',
+                                        '1' => 'Image',
+                                    ])
+                                    ->inline()
+                                    ->inlineLabel(false)
+                                    ->label('Type de logo')
+                                    ->columnSpanFull(),
                                 Forms\Components\FileUpload::make('logo')
                                     ->required(),
                                 Forms\Components\FileUpload::make('favicon'),

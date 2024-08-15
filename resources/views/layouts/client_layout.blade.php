@@ -34,8 +34,12 @@
         <div class="container">
 
             <!-- Brand -->
-            <a class="navbar-brand" href="">
-                {{ $shop->name }}
+            <a class="navbar-brand" href="{{ route('client.index') }}">
+                @if ($shop->logo_type == 1)
+                    <img src="{{ asset('storage/' . $shop->logo) }}" class=""  style="max-height: 45px" alt="{{ $shop->name }} Logo">                
+                @else
+                    {{ $shop->name }}                
+                @endif
             </a>
 
             <!-- Toggler -->
