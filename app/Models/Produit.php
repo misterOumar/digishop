@@ -25,6 +25,7 @@ class Produit extends Model
 
     protected $casts = [
         'tailles' => 'array',
+        'photos' => 'array',
     ];
 
     public function categorie(): BelongsTo

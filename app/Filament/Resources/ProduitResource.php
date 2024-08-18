@@ -33,7 +33,8 @@ class ProduitResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image(),
                 Forms\Components\FileUpload::make('photos')
-                    ->image(),
+                    ->image()
+                    ->multiple(),
                 Forms\Components\TextInput::make('prix')
                     ->required()
                     ->numeric(),

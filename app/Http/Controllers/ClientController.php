@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
+use App\Models\Produit;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 
@@ -9,8 +11,14 @@ class ClientController extends Controller
 {
     // show index page
     public function index()
-    {        
-        return view('clients.index');
+    {   
+        // Récupérer toutes les catégories avec le nombre de produits
+        $categories = Categorie::withCount('produits')->get();
+
+        // Récupérer tous les produits avec le nom de la catégorie
+        $produits = Produit::with('categorie')->get();
+
+        return view('clients.index', compact('categories', 'produits'));
     }
 
 

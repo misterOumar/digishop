@@ -4,10 +4,30 @@
 
 @section('content')
 
+<style>
+.flickity-prev-next-button.previous::before {
+    content: "\f053"; /* Code Unicode pour l'icône "fa-chevron-left" */
+    font-family: "Font Awesome 6 Free"; /* Nom de la police Font Awesome */
+    font-weight: 900; /* Poids de la police (nécessaire pour les icônes solid) */
+    display: inline-block;
+    font-size: 16px; /* Taille de l'icône */
+    color: inherit; /* Couleur héritée de l'élément parent, vous pouvez aussi définir une couleur spécifique */
+}
+.flickity-prev-next-button.next::before {
+    content: "\f054"; /* Code Unicode pour l'icône "fa-chevron-left" */
+    font-family: "Font Awesome 6 Free"; /* Nom de la police Font Awesome */
+    font-weight: 900; /* Poids de la police (nécessaire pour les icônes solid) */
+    display: inline-block;
+    font-size: 16px; /* Taille de l'icône */
+    color: inherit; /* Couleur héritée de l'élément parent, vous pouvez aussi définir une couleur spécifique */
+}
+
+</style>
+
     <!-- SLIDER -->
     <section>
         <div class="flickity-page-dots-inner mb-9"
-            data-flickity='{"prevNextButtons": false, "fade": false, "autoPlay": 3000, "lazyLoad": true, "pageDots": true}'>
+            data-flickity='{"prevNextButtons": true, "fade": false, "autoPlay": 3000, "lazyLoad": true, "pageDots": true}'>
 
             <!-- Item -->
             <div class="w-100 bg-cover" style="background-image: url({{ asset('client/assets/img/covers/cover-5.jpg') }});">
@@ -100,161 +120,43 @@
               <!-- Heading -->
               <h2 class="mb-4 text-center">Acheter par catégorie</h2>
   
-              <!-- Nav -->
-              <div class="nav justify-content-center mb-10">
-                <a class="nav-link active" href="#topSellersTab" data-bs-toggle="tab">Femme</a>
-                <a class="nav-link" href="#topSellersTab" data-bs-toggle="tab">Homme</a>
-                <a class="nav-link" href="#topSellersTab" data-bs-toggle="tab">Enfant</a>
-              </div>
+           
   
               <!-- Content -->
               <div class="tab-content">
   
                 <!-- Pane -->
-                <div class="tab-pane fade show active" id="topSellersTab">
+                <div >
   
                   <!-- Slider -->
-                  <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12" data-flickity='{"prevNextButtons": true}'>
+                  <div class="flickity-buttons-lg flickity-buttons-bottom-start px-lg-12" data-flickity='{"prevNextButtons": true}'>
   
                     <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-25.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Dresses <small>(58)</small></h6>
-                          </a>
-  
+                    @forelse ($categories as $category)
+                      <div class="col px-4" style="max-width: 200px;">
+                        <div class="card h-100" >
+    
+                          <!-- Image -->
+                          <img class="card-img-top" src="{{asset("storage/" .$category->cover)}}" alt="...">
+    
+                          <!-- Body -->
+                          <div class="card-body py-4 px-0 text-center">
+    
+                            <!-- Heading -->
+                            <a class="stretched-link text-body" href="{{ route('client.shop', $category->nom) }}">
+                              <h6>{{ $category->nom }} <small>({{ $category->produits_count }})</small></h6>
+                            </a>
+    
+                          </div>
+    
                         </div>
-  
                       </div>
-                    </div>
+                        
+                    @empty
+                        
+                    @endforelse
   
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-26.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Tops <small>(35)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-  
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-27.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>T-shirts <small>(27)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-  
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-128.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Shoes <small>(64)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-  
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-129.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Jeans <small>(12)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-  
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-125.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Sweatshirts <small>(11)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-  
-                    <!-- Item -->
-                    <div class="col px-4" style="max-width: 200px;">
-                      <div class="card">
-  
-                        <!-- Image -->
-                        <img class="card-img-top" src="{{asset('client/assets/img/products/product-126.jpg')}}" alt="...">
-  
-                        <!-- Body -->
-                        <div class="card-body py-4 px-0 text-center">
-  
-                          <!-- Heading -->
-                          <a class="stretched-link text-body" href="shop.html">
-                            <h6>Jackets <small>(9)</small></h6>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
+                  
   
                   </div>
   
@@ -280,36 +182,9 @@
       </div>
       <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
 
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
+      
 
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
-
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-6.jpg')}}" alt="...">
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Cotton floral print Dress</a> <br>
-              <span class="text-muted">$40.00</span>
-            </div>
-
-          </div>
-        </div>
+        @forelse ($produits as $produit)
 
         <!-- Item -->
         <div class="col px-4" style="max-width: 300px;">
@@ -325,183 +200,41 @@
 
               <!-- Badge -->
               <span class="badge bg-dark card-badge card-badge-start text-uppercase">
-                Sale
+                PROMO
               </span>
 
               <!-- Button -->
               <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
+                <i class="fa-regular fa-eye me-2 "></i> Aperçu rapide
               </button>
 
               <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-10.jpg')}}" alt="...">
+              <img class="card-img-top" src="{{asset('storage/'.$produit->image)}}" alt="...">
 
             </div>
 
             <!-- Body -->
             <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Suede cross body Bag</a> <br>
-              <span class="fs-xs text-gray-350 text-decoration-line-through">$85.00</span>
-              <span class="text-primary">$49.00</span>
+              <a class="text-body" href="{{ route('client.product.details', $produit->id) }}">{{ $produit->nom }}</a> <br>
+              <span class="fs-xs text-gray-350 text-decoration-line-through">{{ $produit->prix + 3500}} FCFA</span>
+              <span class="text-primary">{{ $produit->prix }} FCFA</span>
+              {{-- <span class="text-muted">$65.00</span> --}}
+
             </div>
 
           </div>
         </div>
 
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
+        @empty
 
-            <!-- Image -->
-            <div class="card-img">
+        @endforelse
 
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
+        
 
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
 
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-32.jpg')}}" alt="...">
+      
 
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Cotton leaf print Shirt</a> <br>
-              <span class="text-muted">$65.00</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
-
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
-
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-7.jpg')}}" alt="...">
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Leather Sneakers</a> <br>
-              <a class="text-primary" href="#">Select Options</a>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
-
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
-
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-11.jpg')}}" alt="...">
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Another fine dress</a> <br>
-              <span class="text-muted">$99.00</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
-
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
-
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-33.jpg')}}" alt="...">
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Baseball Cap</a> <br>
-              <span class="text-muted">$10.00</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Item -->
-        <div class="col px-4" style="max-width: 300px;">
-          <div class="card">
-
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-end" data-toggle="button">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-
-              <!-- Button -->
-              <button class="btn btn-xs w-100 btn-dark card-btn" data-bs-toggle="modal" data-bs-target="#modalProduct">
-                <i class="fa-regular fa-eye me-2 mb-1"></i> Quick View
-              </button>
-
-              <!-- Image -->
-              <img class="card-img-top" src="{{asset('client/assets/img/products/product-49.jpg')}}" alt="...">
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body fw-bold text-center">
-              <a class="text-body" href="product.html">Leather sneakers</a> <br>
-              <span class="text-muted">$19.00</span>
-            </div>
-
-          </div>
-        </div>
+    
 
       </div>
     </section>

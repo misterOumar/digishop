@@ -51,7 +51,7 @@
                                 <div class="card-img">
 
                                     <!-- Image -->
-                                    <a class="card-img-hover" href="product.html">
+                                    <a class="card-img-hover" href="{{ route('client.product.details') }}">
                                         <img class="card-img-top card-img-back" src="{{ asset('client/assets/img/products/product-120.jpg') }}"
                                             alt="...">
                                         <img class="card-img-top card-img-front" src="{{ asset('client/assets/img/products/product-5.jpg') }}"

@@ -14,4 +14,10 @@ class Categorie extends Model
         'cover',
         'is_active',
     ];
+
+    // Relation avec les produits
+    public function produits()
+    {
+        return $this->hasMany(Produit::class);
+    }
 }
