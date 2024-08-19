@@ -32,4 +32,9 @@ class Produit extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

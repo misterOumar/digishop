@@ -5,7 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProduitResource\Pages;
 use App\Filament\Resources\ProduitResource\RelationManagers;
 use App\Models\Produit;
+use Filament\Actions\ActionGroup;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Split;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,41 +31,99 @@ class ProduitResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nom')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image(),
-                Forms\Components\FileUpload::make('photos')
-                    ->image()
-                    ->multiple(),
-                Forms\Components\TextInput::make('prix')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('stock')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\RichEditor::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('categorie_id')
-                    ->relationship(name: 'categorie', titleAttribute: 'nom')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                Forms\Components\Select::make('tailles')
-                    ->multiple()
-                    ->options([
-                        'S' => 'S',
-                        'M' => 'M',
-                        'L' => 'L',
-                        'XL' => 'XL',
-                        'XXL' => 'XXL',
-                        'XXXL' => 'XXXL',
+                Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('Générale')
+                            ->description('Les informations générales du produit')
+                            ->schema([
+                                Forms\Components\TextInput::make('nom')
+                                    ->required()
+                                    ->maxLength(255),
+
+                                Forms\Components\RichEditor::make('description')
+                                    ->required()
+                                    ->columnSpanFull(),
+
+                            ]),
+
+                            Forms\Components\Section::make('Images')
+                            ->schema([
+                                Forms\Components\FileUpload::make('image')
+                                    ->image()
+                                    ->directory('products')
+                                    ->label('Image principale'),
+                                Forms\Components\FileUpload::make('photos')
+                                    ->image()
+                                    ->multiple()
+                                    ->directory('products')
+                                    ->label('Images additionnelles'),
+
+                            ]),
+                    ])->columnSpan(2),
+
+                Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('Prix et Stock')
+                            ->description('Les informations générales du produit')
+                            ->schema([
+
+                                Forms\Components\TextInput::make('prix')
+                                    ->required()
+                                    ->numeric(),
+
+                                Forms\Components\TextInput::make('stock')
+                                    ->required()
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->label('Quantité Stock Disponible'),
+
+                            ]),
+
+                        Forms\Components\Section::make('Associations')
+                            ->schema([
+
+                                Forms\Components\Select::make('categorie_id')
+                                    ->relationship(name: 'categorie', titleAttribute: 'nom')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->placeholder('Selectionner une Categorie'),
+
+                                Forms\Components\Select::make('brand_id')
+                                    ->relationship(name: 'brand', titleAttribute: 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->label('Marque')
+                                    ->placeholder('Selectionner une Marque'),
+
+                                Forms\Components\Select::make('tailles')
+                                    ->multiple()
+                                    ->placeholder('Selectionner les Tailles')
+                                    ->options([
+                                        'S' => 'S',
+                                        'M' => 'M',
+                                        'L' => 'L',
+                                        'XL' => 'XL',
+                                        'XXL' => 'XXL',
+                                        'XXXL' => 'XXXL',
+
+                                    ]),
+
+
+                                Forms\Components\ColorPicker::make('couleurs'),
+
+                            ]),
 
                     ]),
-                Forms\Components\ColorPicker::make('couleurs'),
-            ]);
+
+
+
+
+
+
+
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -97,8 +159,11 @@ class ProduitResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

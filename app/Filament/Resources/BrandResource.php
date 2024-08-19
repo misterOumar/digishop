@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BrandResource\Pages;
 use App\Filament\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
+use Filament\Actions\ActionGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -31,7 +32,9 @@ class BrandResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name'),
                 Forms\Components\Toggle::make('is_active')->default(true),
-                Forms\Components\FileUpload::make('image'),
+                Forms\Components\FileUpload::make('image')
+                ->image()
+                ->directory('brands'),
             ]);
     }
 
@@ -41,13 +44,18 @@ class BrandResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\ToggleColumn::make('is_active'),
+                Tables\Columns\IconColumn::make('is_active')->boolean(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
