@@ -57,7 +57,10 @@ class CurrencyResource extends Resource
     {
         return $table
             ->columns([
-                
+                Tables\Columns\TextColumn::make('name')->label('Nom'),
+                Tables\Columns\TextColumn::make('symbol')->label('Symbole'),
+                Tables\Columns\TextColumn::make('code'),
+                Tables\Columns\TextColumn::make('country')->label('Pays'),
             ])
             ->filters([
                 //

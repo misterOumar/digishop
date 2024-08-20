@@ -49,12 +49,17 @@ class ShopResource extends Resource
                                 Forms\Components\TextInput::make('phone_2')
                                     ->tel()
                                 ->suffixIcon('heroicon-o-phone'),
+                                Forms\Components\Select::make('currency_id')
+                                    ->label('Devise')
+                                    ->relationship('currency', 'name')
+                                    ->preload()
+                                    ->searchable()
+                                    ->required(),
                                 Forms\Components\TextInput::make('email')
                                     ->email()
                                 ->suffixIcon('heroicon-o-envelope'),
                                 Forms\Components\TextInput::make('slogan'),
                                 Forms\Components\TextInput::make('map')
-                                ->columnSpanFull()
                                 ->suffixIcon('heroicon-o-map'),
                                 Forms\Components\RichEditor::make('description')
                                     ->columnSpanFull(),

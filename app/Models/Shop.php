@@ -14,6 +14,7 @@ class Shop extends Model
         'adresse',
         'phone_1',
         'phone_2',
+        'currency_id',
         'email',
         'logo',
         'logo_type',
@@ -30,4 +31,9 @@ class Shop extends Model
         'tiktok',
         'whatsapp'
     ];
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
 }
