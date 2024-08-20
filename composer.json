@@ -8,7 +8,10 @@
         "php": "^8.2",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "rinvex/country": "^2.0",
+        "symfony/intl": "^7.1",
+        "tapp/filament-country-code-field": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
