@@ -17,6 +17,12 @@ class Produit extends Model
         'photos',
         'prix',
         'stock',
+        'min_quantite',
+        'is_active',
+        'is_new',
+        'is_featured',
+        'in_stock',
+        'is_solde',
         'tailles',
         'couleurs',
         'categorie_id'

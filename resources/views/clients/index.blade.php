@@ -216,8 +216,8 @@
             <!-- Body -->
             <div class="card-body fw-bold text-center">
               <a class="text-body" href="{{ route('client.product.details', $produit->id) }}">{{ $produit->nom }}</a> <br>
-              <span class="fs-xs text-gray-350 text-decoration-line-through">{{ $produit->prix + 3500}} FCFA</span>
-              <span class="text-primary">{{ $produit->prix }} FCFA</span>
+              <span class="fs-xs text-gray-350 text-decoration-line-through">{{ $produit->prix + 3500 .' '. $shop->currency->symbol}} </span>
+              <span class="text-primary">{{ $produit->prix.' ' . $shop->currency->symbol }}</span>
               {{-- <span class="text-muted">$65.00</span> --}}
 
             </div>

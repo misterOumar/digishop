@@ -46,7 +46,7 @@ class ProduitResource extends Resource
 
                             ]),
 
-                            Forms\Components\Section::make('Images')
+                        Forms\Components\Section::make('Images')
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
@@ -76,6 +76,13 @@ class ProduitResource extends Resource
                                     ->numeric()
                                     ->minValue(1)
                                     ->label('Quantité Stock Disponible'),
+
+                                Forms\Components\TextInput::make('min_quantite')
+                                    ->required()
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->default(1)
+                                    ->label('Quantité Min Vendable'),
 
                             ]),
 
@@ -107,11 +114,25 @@ class ProduitResource extends Resource
                                         'XL' => 'XL',
                                         'XXL' => 'XXL',
                                         'XXXL' => 'XXXL',
-
                                     ]),
 
 
                                 Forms\Components\ColorPicker::make('couleurs'),
+
+                            ]),
+
+                        Forms\Components\Section::make('Statut')
+                            ->schema([
+
+                                Forms\Components\Toggle::make('is_active')->label('Actif')->default(true),
+                                Forms\Components\Toggle::make('is_new')->label('Nouveau')->default(true),
+                                Forms\Components\Toggle::make('in_stock')->label('En stock')->default(true),
+                                Forms\Components\Toggle::make('is_solde')->label('En solde')->default(false),
+                                Forms\Components\Toggle::make('is_featured')->label('En vedette')->default(false),
+
+
+
+
 
                             ]),
 
