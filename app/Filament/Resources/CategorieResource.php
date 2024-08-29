@@ -6,6 +6,7 @@ use App\Filament\Resources\CategorieResource\Pages;
 use App\Filament\Resources\CategorieResource\RelationManagers;
 use App\Models\Categorie;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,9 +27,21 @@ class CategorieResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nom'),
-                Forms\Components\Toggle::make('is_active')->default(true),
-                Forms\Components\FileUpload::make('cover'),
+                Section::make()->schema([
+                    Forms\Components\TextInput::make('nom')
+                        ->required()
+                        ->maxLength(255),
+                    
+                    Forms\Components\FileUpload::make('cover')
+                        ->image()
+                        ->label('Image de couverture')
+                        ->directory('categories'),
+
+                    Forms\Components\Toggle::make('is_active')
+                        ->label('Activer')
+                        ->required()
+                        ->default(true),
+                ]),
             ]);
     }
 
@@ -44,7 +57,11 @@ class CategorieResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([                    
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
