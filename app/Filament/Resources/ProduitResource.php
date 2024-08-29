@@ -13,6 +13,7 @@ use Filament\Forms\Components\Split;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -177,7 +178,12 @@ class ProduitResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('categorie')
+                    ->relationship('categorie', 'nom'),
+
+                SelectFilter::make('brand')
+                    ->relationship('brand', 'name')
+                    ->label('Marque'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
