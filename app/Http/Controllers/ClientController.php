@@ -69,6 +69,8 @@ class ClientController extends Controller
 
     public function viewShop()    
     {
-        return view('clients.shop');
+        // Récupérer tous les produits avec le nom de la catégorie
+        $produits = Produit::with('categorie')->get();
+        return view('clients.shop', compact('produits'));
     }
 }
