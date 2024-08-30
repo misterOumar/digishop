@@ -2,21 +2,32 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Middleware\ShareShopData;
+use App\Livewire\CheckoutPage;
+use App\Livewire\FaqPage;
+use App\Livewire\HomePage;
+use App\Livewire\LoginPage;
+use App\Livewire\MyOrderDetailPage;
+use App\Livewire\MyOrdersPage;
+use App\Livewire\OrderCompletedPage;
+use App\Livewire\ProductDetailPage;
+use App\Livewire\ProductsPage;
+use App\Livewire\RegisterPage;
+use App\Livewire\ShoppingCartPage;
 use Illuminate\Support\Facades\Route;
 
 // client routes
 Route::middleware([ShareShopData::class])->group(function () {
-    Route::get('/', [ClientController::class, 'index'])->name('client.index');
-    Route::get('/login', [ClientController::class, 'viewLogin'])->name('client.login');
-    Route::get('/register', [ClientController::class, 'viewRegister'])->name('client.register');
-    Route::get('/account/orders', [ClientController::class, 'viewAccountOrders'])->name('client.account.orders');
-    Route::get('/account/order-details', [ClientController::class, 'viewAccountOrderDetails'])->name('client.account.order.details');
-    Route::get('/product/details', [ClientController::class, 'viewProductDetails'])->name('client.product.details');
-    Route::get('/shopping-cart', [ClientController::class, 'viewShoppingCart'])->name('client.shopping-cart');
-    Route::get('/checkout', [ClientController::class, 'viewCheckout'])->name('client.checkout');
-    Route::get('/faq', [ClientController::class, 'viewFaq'])->name('client.faq');
-    Route::get('/order-completed', [ClientController::class, 'viewOrderCompleted'])->name('client.order-completed');
-    Route::get('/shop', [ClientController::class, 'viewShop'])->name('client.shop');
+    Route::get('/', HomePage::class)->name('client.index');
+    Route::get('/login', LoginPage::class)->name('customer.login');
+    Route::get('/register', RegisterPage::class)->name('customer.register');
+    Route::get('/my-orders', MyOrdersPage::class)->name('client.account.orders');
+    Route::get('/my-orders/{order}', MyOrderDetailPage::class)->name('client.account.order.details');
+    Route::get('/products/{product}', ProductDetailPage::class)->name('client.product.details');
+    Route::get('/shopping-cart', ShoppingCartPage::class)->name('client.shopping-cart');
+    Route::get('/checkout', CheckoutPage::class)->name('client.checkout');
+    Route::get('/faq', FaqPage::class)->name('customer.faqs');
+    Route::get('/order-completed', OrderCompletedPage::class)->name('client.order-completed');
+    Route::get('/products', ProductsPage::class)->name('customer.products');
     
 });
 

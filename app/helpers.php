@@ -24,9 +24,14 @@ class Helpers
         $style = NumberFormatter::DECIMAL, 
         $precision = 0, 
         $groupingUsed = true,
-        $currencyCode = 'XOF'
+        $currencyCode = null
         )
     {
+        // Si aucun code de devise n'est fourni, utilisez celui du shop actuel
+        if (!$currencyCode && isset($GLOBALS['shop'])) {
+            $currencyCode = $GLOBALS['shop']->currency->code ?? 'USD'; // USD comme devise par défaut si aucune n'est trouvée
+        }
+
         $numberFormatter = new NumberFormatter($locale, $style);
         $numberFormatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
         $numberFormatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);

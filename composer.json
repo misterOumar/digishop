@@ -9,6 +9,7 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "livewire/livewire": "^3.5",
         "rinvex/country": "^2.0",
         "symfony/intl": "^7.1",
         "tapp/filament-country-code-field": "^1.0"

@@ -20,6 +20,9 @@ class ShareShopData
         $shop = Shop::where('is_active', 1)->first();
         View::share('shop', $shop);
 
+        // Rendre également accessible globalement si nécessaire
+        $GLOBALS['shop'] = $shop;
+
         return $next($request);
     }
 }
