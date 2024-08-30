@@ -11,6 +11,7 @@ class Categorie extends Model
 
     protected $fillable = [
         'nom',
+        'slug',
         'cover',
         'is_active',
     ];
