@@ -194,7 +194,7 @@
                     <!-- Body -->
                     <div class="card-body fw-bold text-center">
                         <a class="text-body"
-                            href="{{ route('client.product.details', $produit->id) }}">{{ $produit->nom }}</a> <br>
+                            href="{{ route('customer.product.details', $produit->slug) }}">{{ $produit->nom }}</a> <br>
                         <span
                             class="fs-xs text-gray-350 text-decoration-line-through">{{ $produit->prix + 3500 . ' ' . $shop->currency->symbol }}
                         </span>

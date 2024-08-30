@@ -33,7 +33,7 @@
                 <!-- Products -->
                 <div class="row">
                     @forelse ($produits as $produit)
-                        <div class="col-6 col-md-3 col-sm-6">
+                        <div class="col-6 col-md-3 col-sm-6" wire-key="{{ $produit->id }}">
 
                             <!-- Card -->
                             <div class="card mb-7">
@@ -55,7 +55,7 @@
 
                                     <!-- Image -->
                                     <a class="{{ count($produit->photos) > 0 ? 'card-img-hover' : '' }}"
-                                        href="{{ route('client.product.details', $produit) }}">
+                                        href="{{ route('customer.product.details', $produit->slug) }}">
                                         @if (count($produit->photos) > 0)
                                             <img class="card-img-top card-img-back"
                                                 src="{{ asset('storage/' . $produit->photos[0]) }}" alt="...">
