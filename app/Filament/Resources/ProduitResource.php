@@ -11,12 +11,14 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class ProduitResource extends Resource
 {
@@ -37,9 +39,23 @@ class ProduitResource extends Resource
                         Forms\Components\Section::make('Générale')
                             ->description('Les informations générales du produit')
                             ->schema([
+
                                 Forms\Components\TextInput::make('nom')
                                     ->required()
-                                    ->maxLength(255),
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(
+                                        fn(string $operation, $state, Set $set)
+                                        => $operation === 'create' ?
+                                            $set('slug', Str::slug($state)) : null
+                                    ),
+
+                                Forms\Components\TextInput::make('slug')
+                                    ->required()
+                                    ->disabled()
+                                    ->maxLength(255)
+                                    ->dehydrated()
+                                    ->unique(Produit::class, 'slug', ignoreRecord: true),
 
                                 Forms\Components\RichEditor::make('description')
                                     ->required()
@@ -117,7 +133,6 @@ class ProduitResource extends Resource
                                         'XXXL' => 'XXXL',
                                     ]),
 
-
                                 Forms\Components\ColorPicker::make('couleurs'),
 
                             ]),
@@ -131,20 +146,10 @@ class ProduitResource extends Resource
                                 Forms\Components\Toggle::make('is_solde')->label('En solde')->default(false),
                                 Forms\Components\Toggle::make('is_featured')->label('En vedette')->default(false),
 
-
-
-
-
                             ]),
 
                     ]),
-
-
-
-
-
-
-
+                    
             ])->columns(3);
     }
 
