@@ -45,7 +45,7 @@
                             </a>
 
                             <!-- Collapse -->
-                            <div class="collapse" id="brandCollapse" data-simplebar-collapse="#brandGroup">
+                            <div class="collapse {{ $selected_brands ? 'show' : '' }}" id="brandCollapse" data-simplebar-collapse="#brandGroup">
 
                                 <!-- Search -->
                                 <div data-list='{"valueNames": ["name"]}'>
@@ -70,7 +70,7 @@
 
                                             @foreach ($brands as $brand)
                                                 <div class="form-check mb-3" wire-key="{{ $brand->id }}">
-                                                    <input class="form-check-input" id="{{ $brand->slug }}"
+                                                    <input wire:model.live="selected_brands" class="form-check-input" id="{{ $brand->slug }}"
                                                         type="checkbox" value="{{ $brand->id }}">
                                                     <label class="form-check-label name" for="{{ $brand->slug }}">
                                                         {{ $brand->name }}
@@ -82,6 +82,46 @@
                                     </div>
 
                                 </div>
+
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+
+                            <!-- Toggle -->
+                            <a class="nav-link dropdown-toggle fs-lg text-reset border-bottom mb-6"
+                                data-bs-toggle="collapse" href="#statusCollapse">
+                                Statut
+                            </a>
+
+                            <!-- Collapse -->
+                            <div class="collapse " id="statusCollapse" data-simplebar-collapse="#statusGroup">
+
+                                                                  
+
+                                    <!-- Form group -->
+                                    <div class="form-group form-group-overflow mb-6" id="statusGroup">
+                                        <div class="list">
+                                           
+                                                <div class="form-check mb-3" >
+                                                    <input wire:model.live="new_status" class="form-check-input" id="new"
+                                                        type="checkbox" value="1">
+                                                    <label class="form-check-label name" for="new">
+                                                        Nouveau
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check mb-3" >
+                                                    <input wire:model.live="sold_status" class="form-check-input" id="sold"
+                                                        type="checkbox" value="1">
+                                                    <label class="form-check-label name" for="sold">
+                                                        Solde
+                                                    </label>
+                                                </div>
+                                            
+
+                                        </div>
+                                    </div>
 
                             </div>
 

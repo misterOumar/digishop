@@ -28,7 +28,14 @@ class ProductsPage extends Component
     #[Url]
     public $selected_categories = [];
 
+    #[Url]
     public $selected_brands = [];
+
+    #[Url]
+    public $new_status;
+
+    #[Url]
+    public $sold_status;
 
 
 
@@ -38,6 +45,18 @@ class ProductsPage extends Component
 
         if (!empty($this->selected_categories)) {
             $productQuery->whereIn('categorie_id', $this->selected_categories);
+        }
+
+        if (!empty($this->selected_brands)) {
+            $productQuery->whereIn('brand_id', $this->selected_brands);
+        }
+
+        if($this->new_status) {
+            $productQuery->where('is_new', 1);
+        }
+
+        if($this->sold_status) {
+            $productQuery->where('is_solde', 1);
         }
 
         return view('livewire.products-page', [
