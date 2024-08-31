@@ -23,7 +23,7 @@ Route::middleware([ShareShopData::class])->group(function () {
     Route::get('/register', RegisterPage::class)->name('customer.register');
     Route::get('/my-orders', MyOrdersPage::class)->name('client.account.orders');
     Route::get('/my-orders/{order}', MyOrderDetailPage::class)->name('client.account.order.details');
-    Route::get('/products/{product}', ProductDetailPage::class)->name('customer.product.details');
+    Route::get('/products/{slug}', ProductDetailPage::class)->name('customer.product.details');
     Route::get('/shopping-cart', ShoppingCartPage::class)->name('client.shopping-cart');
     Route::get('/checkout', CheckoutPage::class)->name('client.checkout');
     Route::get('/faq', FaqPage::class)->name('customer.faqs');

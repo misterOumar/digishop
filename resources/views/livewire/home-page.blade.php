@@ -104,7 +104,7 @@
                     <div>
 
                         <!-- Slider -->
-                        <div class="flickity-buttons-lg flickity-buttons-bottom-start px-lg-12"
+                        <div class="flickity-buttons-lg flickity-buttons-offset px-lg-12"
                             data-flickity='{"prevNextButtons": true}'>
 
                             <!-- Item -->

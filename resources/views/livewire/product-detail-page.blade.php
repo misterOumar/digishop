@@ -8,13 +8,13 @@
                     <!-- Breadcrumb -->
                     <ol class="breadcrumb mb-0 fs-xs text-gray-400">
                         <li class="breadcrumb-item">
-                            <a class="text-gray-400" href="index.html">Home</a>
+                            <a wire:navigate class="text-gray-400" href="{{ route('client.index') }}">Accueil</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a class="text-gray-400" href="shop.html">Women's Shoes</a>
+                            <a class="text-gray-400" href="shop.html">{{ $product->categorie->nom }}</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            Leather Sneakers
+                            {{ $product->nom }}
                         </li>
                     </ol>
 
@@ -45,24 +45,25 @@
 
                                     <!-- Item -->
                                     <a href="#"
-                                        data-bigpicture='{ "imgSrc": "{{ asset('client/assets/img/products/product-7.jpg') }}"}'>
-                                        <img src="{{ asset('client/assets/img/products/product-7.jpg') }}"
+                                        data-bigpicture='{ "imgSrc": "{{ asset('storage/' . $product->image) }}"}'>
+                                        <img src="{{ asset('storage/' . $product->image) }}"
                                             alt="..." class="card-img-top">
                                     </a>
 
-                                    <!-- Item -->
-                                    <a href="#"
-                                        data-bigpicture='{ "imgSrc": "{{ asset('client/assets/img/products/product-122.jpg') }}"}'>
-                                        <img src="{{ asset('client/assets/img/products/product-122.jpg') }}"
-                                            alt="..." class="card-img-top">
-                                    </a>
+                                    @forelse ($product->photos as $photo)
+                                        <!-- Item -->
+                                        <a href="#"
+                                            data-bigpicture='{ "imgSrc": "{{ asset('storage/' . $photo) }}"}'>
+                                            <img src="{{ asset('storage/' . $photo) }}"
+                                                alt="..." class="card-img-top">
+                                        </a>
+                                        
+                                    @empty
+                                        
+                                    @endforelse
 
-                                    <!-- Item -->
-                                    <a href="#"
-                                        data-bigpicture='{ "imgSrc": "{{ asset('client/assets/img/products/product-146.jpg') }}"}'>
-                                        <img src="{{ asset('client/assets/img/products/product-146.jpg') }}"
-                                            alt="..." class="card-img-top">
-                                    </a>
+
+                                 
 
                                 </div>
 
@@ -77,30 +78,27 @@
 
                                     <!-- Image -->
                                     <div class="ratio ratio-1x1 bg-cover"
-                                        style="background-image: url({{ asset('client/assets/img/products/product-7.jpg') }});">
+                                        style="background-image: url({{ asset('storage/' . $product->image) }});">
                                     </div>
 
                                 </div>
 
-                                <!-- Item -->
-                                <div class="col-12 px-2" style="max-width: 113px;">
+                                @forelse ($product->photos as $photo)
+                                    
+                                    <!-- Item -->
+                                    <div class="col-12 px-2" style="max-width: 113px;">
 
-                                    <!-- Image -->
-                                    <div class="ratio ratio-1x1 bg-cover"
-                                        style="background-image: url({{ asset('client/assets/img/products/product-122.jpg') }});">
+                                        <!-- Image -->
+                                        <div class="ratio ratio-1x1 bg-cover"
+                                            style="background-image: url({{ asset('storage/' . $photo) }});">
+                                        </div>
+
                                     </div>
+                                @empty
+                                    
+                                @endforelse
 
-                                </div>
-
-                                <!-- Item -->
-                                <div class="col-12 px-2" style="max-width: 113px;">
-
-                                    <!-- Image -->
-                                    <div class="ratio ratio-1x1 bg-cover"
-                                        style="background-image: url({{ asset('client/assets/img/products/product-146.jpg') }});">
-                                    </div>
-
-                                </div>
+                               
 
                             </div>
 
@@ -112,7 +110,7 @@
                                 <div class="col">
 
                                     <!-- Preheading -->
-                                    <a class="text-muted" href="shop.html">Sneakers</a>
+                                    <a class="text-muted" href="shop.html">{{ $product->categorie->nom }}</a>
 
                                 </div>
                                 <div class="col-auto">
@@ -144,13 +142,13 @@
                             </div>
 
                             <!-- Heading -->
-                            <h3 class="mb-2">Leather Sneakers</h3>
+                            <h3 class="mb-2">{{ $product->nom }}</h3>
 
                             <!-- Price -->
                             <div class="mb-7">
-                                <span class="fs-lg fw-bold text-gray-350 text-decoration-line-through">$115.00</span>
-                                <span class="ms-1 fs-5 fw-bolder text-primary">$85.00</span>
-                                <span class="fs-sm ms-1">(In Stock)</span>
+                                <span class="fs-lg fw-bold text-gray-350 text-decoration-line-through">{{ \App\Helpers::formatNumber(value: $product->prix + $product->prix * 0.3, style: NumberFormatter::CURRENCY, precision: 2, currencyCode: $shop->currency->code) }}</span>
+                                <span class="ms-1 fs-5 fw-bolder text-primary">{{ \App\Helpers::formatNumber(value: $product->prix, style: NumberFormatter::CURRENCY, precision: 2, currencyCode: $shop->currency->code) }}</span>
+                                <span class="fs-sm ms-1">({{ $product->stock }} En Stock)</span>
                             </div>
 
                             <!-- Form -->
@@ -315,14 +313,14 @@
 
                                     <!-- Text -->
                                     <p>
-                                        <span class="text-gray-500">Is your size/color sold out?</span>
+                                        <span class="text-gray-500">Votre taille/couleur est épuisée ?</span>
                                         <a class="text-reset text-decoration-underline" data-bs-toggle="modal"
-                                            href="#modalWaitList">Join the Wait List!</a>
+                                            href="#modalWaitList">Inscrivez-vous sur la liste d'attente !</a>
                                     </p>
 
                                     <!-- Share -->
                                     <p class="mb-0">
-                                        <span class="me-4">Share:</span>
+                                        <span class="me-4">Partager :</span>
                                         <a class="btn btn-xxs btn-circle btn-light fs-xxxs text-gray-350"
                                             href="#!">
                                             <i class="fab fa-twitter"></i>
@@ -377,47 +375,8 @@
 
                                             <!-- Text -->
                                             <p class="text-gray-500">
-                                                Won't herb first male seas, beast. Let upon, female upon third fifth
-                                                every.
-                                                Man subdue rule after years herb after
-                                                form. And image may, morning. Behold in tree day sea that together
-                                                cattle
-                                                whose. Fifth gathering brought
-                                                bearing. Abundantly creeping whose. Beginning form have void two. A
-                                                whose.
+                                                {!! $product->description !!}
                                             </p>
-
-                                        </div>
-                                        <div class="col-12 col-md-6">
-
-                                            <!-- List -->
-                                            <ul class="list list-unstyled mb-md-0 text-gray-500">
-                                                <li>
-                                                    <strong class="text-body">SKU</strong>: #61590437
-                                                </li>
-                                                <li>
-                                                    <strong class="text-body">Occasion</strong>: Lifestyle, Sport
-                                                </li>
-                                                <li>
-                                                    <strong class="text-body">Country</strong>: Italy
-                                                </li>
-                                            </ul>
-
-                                        </div>
-                                        <div class="col-12 col-md-6">
-
-                                            <!-- List -->
-                                            <ul class="list list-unstyled mb-0">
-                                                <li>
-                                                    <strong>Outer</strong>: Leather 100%, Polyamide 100%
-                                                </li>
-                                                <li>
-                                                    <strong>Lining</strong>: Polyester 100%
-                                                </li>
-                                                <li>
-                                                    <strong>CounSoletry</strong>: Rubber 100%
-                                                </li>
-                                            </ul>
 
                                         </div>
                                     </div>
@@ -545,7 +504,7 @@
                 <div class="col-12">
 
                     <!-- Heading -->
-                    <h4 class="mb-10 text-center">You might also like</h4>
+                    <h4 class="mb-10 text-center">Vous aimerez aussi</h4>
 
                     <!-- Items -->
                     <div class="row">
